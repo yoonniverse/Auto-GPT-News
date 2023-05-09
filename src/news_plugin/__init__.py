@@ -42,9 +42,9 @@ class NewsPlugin(AutoGPTPluginTemplate):
         """
 
         prompt.add_command(
-            "News Search",
+            "Search news with keyword and make report",
             "news_search",
-            {"query": "<query>"},
+            {"keyword": "<keyword>"},
             self.agent,
         )
         return prompt
