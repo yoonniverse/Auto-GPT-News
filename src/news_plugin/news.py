@@ -7,7 +7,7 @@ from tqdm import tqdm
 from dotenv import load_dotenv
 from duckduckgo_search import ddg_news
 import json
-from utils import *
+from .utils import *
 load_dotenv()
 
 
