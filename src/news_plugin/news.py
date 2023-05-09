@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 from duckduckgo_search import ddg_news
 import json
 from .utils import *
-load_dotenv()
 
 
 class Agent:

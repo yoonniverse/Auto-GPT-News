@@ -1,5 +1,6 @@
 import json
 import re
+import os
 import tiktoken
 import openai
 import copy
@@ -11,9 +12,8 @@ from tenacity import (
     stop_after_attempt,
     wait_random_exponential,
 )  # for exponential backoff
-from dotenv import dotenv_values
-env = dotenv_values(".env") 
-openai.api_key = env['OPENAI_API_KEY']
+
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 MODELS_INFO = {
     'gpt-3.5-turbo': {'max_tokens': 4096, 'pricing': 0.002/1000, 'tokenizer': tiktoken.get_encoding("cl100k_base"), 'tokens_per_message': 5},
