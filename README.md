@@ -1,7 +1,8 @@
-# Auto-GPT-Plugin-Template
-A starting point for developing your own external plug-in for Auto-GPT
+# Auto-GPT-News
 
-# **If you want your plugin to live within the codebase, use the example in the [plugins repo](https://github.com/Significant-Gravitas/Auto-GPT-Plugins) instead**
+Given `keyword` and `goal`, searches news and makes report out of it.
+
+See `demo.ipynb` for usage.
 
 ### Plugin Installation Steps
 

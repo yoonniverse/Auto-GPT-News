@@ -44,7 +44,7 @@ class NewsPlugin(AutoGPTPluginTemplate):
         prompt.add_command(
             "Search news with keyword and make report",
             "news_search",
-            {"keyword": "<keyword>"},
+            {"keyword": "<keyword>", "goal": "<goal to achieve via searching>"},
             self.agent,
         )
         return prompt

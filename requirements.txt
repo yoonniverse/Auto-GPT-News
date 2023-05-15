@@ -7,3 +7,11 @@ wheel
 setuptools
 build
 twine
+
+openai
+tiktoken
+duckduckgo_search
+dotenv
+
+tenacity
+trafilatura
