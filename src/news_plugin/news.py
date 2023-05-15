@@ -9,8 +9,6 @@ import openai
 from trafilatura import fetch_url, extract
 from duckduckgo_search import ddg_news
 from tenacity import retry, stop_after_attempt, wait_random_exponential
-from dotenv import load_dotenv
-load_dotenv()
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
