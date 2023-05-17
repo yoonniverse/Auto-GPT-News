@@ -9,6 +9,7 @@ import openai
 from trafilatura import fetch_url, extract
 from duckduckgo_search import ddg_news
 from tenacity import retry, stop_after_attempt, wait_random_exponential
+from duckduckgo_search.utils import SESSION
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
@@ -80,7 +81,23 @@ class Agent:
             n_urls=10,
             chunk_size=3000,
             chunk_overlap=10,
+            use_proxy=False,
         ):
+        if 'NEWS_USE_PROXY' in os.environ:
+            use_proxy = os.getenv('NEWS_USE_PROXY') == 'True'
+        if 'NEWS_MODEL' in os.environ:
+            model = os.getenv('NEWS_MODEL')
+        if 'NEWS_N_URLS' in os.environ:
+            n_urls = int(os.getenv('NEWS_N_URLS'))
+        if 'NEWS_CHUNK_SIZE' in os.environ:
+            chunk_size = int(os.getenv('NEWS_CHUNK_SIZE'))
+        if 'NEWS_CHUNK_OVERLAP' in os.environ:
+            chunk_overlap = int(os.getenv('NEWS_CHUNK_OVERLAP'))
+        if use_proxy:
+            SESSION.proxies = {
+                "http": f"socks5h://localhost:9150",
+                "https": f"socks5h://localhost:9150"
+            }
         self.model = model
         self.n_urls = n_urls
         self.chunk_size = chunk_size

@@ -4,6 +4,15 @@ Given `keyword` and `goal`, searches news and makes report out of it.
 
 See `demo.ipynb` for usage.
 
+optional environment variables
+```
+NEWS_MODEL=gpt-3.5-turbo
+NEWS_N_URLS=10
+NEWS_CHUNK_SIZE=3000
+NEWS_CHUNK_OVERLAP=10
+NEWS_USE_PROXY=False
+```
+
 ### Plugin Installation Steps
 
 1. **Clone or download the plugin repository:**
