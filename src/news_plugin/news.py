@@ -9,7 +9,7 @@ import openai
 from trafilatura import fetch_url, extract
 from duckduckgo_search import ddg_news
 from tenacity import retry, stop_after_attempt, wait_random_exponential
-from duckduckgo_search.utils import SESSION
+# from duckduckgo_search.utils import SESSION
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
@@ -83,12 +83,12 @@ class Agent:
             chunk_overlap=10,
             proxy=None,
         ):
-        if 'NEWS_PROXY' in os.environ:
-            proxy = os.getenv('NEWS_PROXY')
-            SESSION.proxies = {
-                "http": proxy,
-                "https": proxy
-            }
+        # if 'NEWS_PROXY' in os.environ:
+        #     proxy = os.getenv('NEWS_PROXY')
+        #     SESSION.proxies = {
+        #         "http": proxy,
+        #         "https": proxy
+        #     }
         if 'NEWS_MODEL' in os.environ:
             model = os.getenv('NEWS_MODEL')
         if 'NEWS_N_URLS' in os.environ:
