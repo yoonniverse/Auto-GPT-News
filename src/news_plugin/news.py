@@ -7,9 +7,8 @@ from tqdm import tqdm
 import tiktoken
 import openai
 from trafilatura import fetch_url, extract
-from duckduckgo_search import ddg_news
+from duckduckgo_search import DDGS
 from tenacity import retry, stop_after_attempt, wait_random_exponential
-# from duckduckgo_search.utils import SESSION
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
@@ -102,6 +101,7 @@ class Agent:
         self.n_urls = n_urls
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
+        self.ddgs = DDGS()
 
     def get_doc_from_url(self, url):
         downloaded = fetch_url(url)
@@ -110,9 +110,17 @@ class Agent:
             return None
         return json.loads(doc)
 
-    def get_urls(self, query):      
-        search_results = ddg_news(query, safesearch='off', max_results=self.n_urls)
-        urls = [x['url'] for x in search_results]
+    def get_urls(self, query):
+        ddgs_news_gen = self.ddgs.news(
+            query,
+            region="wt-wt",
+            safesearch="Off",
+        )
+        urls = []
+        for i, ddgs_news in enumerate(ddgs_news_gen):
+            if i >= self.n_urls:
+                break
+            urls.append(ddgs_news['url'])
         # urls = self.get_relevant_urls(search_results)
         return urls
     
@@ -166,7 +174,10 @@ Title: {title}
 Summary: {summary}
 ```
 """
-        prompt += f"""Concisely extract key information that is potentially related to goal "{goal}" from the above articles. Merge information from multiple articles if related. Respond in following JSON format:
+        prompt += f"""Concisely extract key information that is potentially related to goal "{goal}" from the above articles. \
+Merge information from multiple articles if related. \
+Make sure your response is shorter than 500 words. \
+Respond in following JSON format:
 [
     {{
         "key_information": "<key information 1>",
